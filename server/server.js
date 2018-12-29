@@ -27,12 +27,17 @@ io.on('connection', (socket) => {
         console.log('User created new email: ', email);
     });
 
-    // socket.emit('newMessage', {
-    //     from: 'Jason',
-    //     to: 'Sabrina',
-    //     text: 'I will soon',
-    //     createdAt: 345
-    // });
+    socket.emit('newMessage', {
+        from: 'Admin',        
+        text: 'Welcome to the chat app',
+        createdAt: new Date().getTime()
+    });
+    
+    socket.broadcast.emit('createMessage', {
+        from: 'Admin',        
+        text: 'A new user has joined',
+        createdAt: new Date().getTime()
+    });
 
     socket.on('createMessage', (newMessage) => {
         console.log('User created new message: ', newMessage);
@@ -42,6 +47,12 @@ io.on('connection', (socket) => {
             text: newMessage.text,
             createdAt: new Date().getTime()
         });
+        // socket.broadcast.emit('createMessage', {
+        //     from: newMessage.from,
+        //     to: newMessage.to,
+        //     text: newMessage.text,
+        //     createdAt: new Date().getTime()
+        // });
     });
     
     socket.on('disconnect', () => {
