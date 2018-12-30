@@ -2,14 +2,42 @@
 
 <html>
     <head>
-        <meta charset="utf-8" />        
+        <meta charset="utf-8" />     
+        
+        <script src="/js/libs/jquery-3.3.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
     </head>
     <body>
         <p>
-            HELLO CHAT APP
+            CHAT APP
         </p>
 
-        <script src="/socket.io/socket.io.js"></script>   
+        <ol id="messages">
+
+        </ol>
+
+
+        <form id="chatForm">
+            <input type="text" 
+                    name="message" 
+                    id="message" 
+                    placeholder="Message to send" />
+            <button>Send</button>
+        </form>
+
         <script src="/js/index.js"></script>
     </body>
+    <script>
+        jQuery('#chatForm').on('submit', function(e) {
+            e.preventDefault(); //prevents the default behavior for the event
+
+            socket.emit('createMessage', {
+                from: 'User',
+                text: jQuery('[name=message]').val()
+            }, function() {
+                console.log('Sent');
+                jQuery('[name=message]').val('');
+            });
+        });
+    </script>
 </html>

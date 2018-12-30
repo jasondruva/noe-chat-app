@@ -32,9 +32,11 @@ io.on('connection', (socket) => {
 
     socket.broadcast.emit('createMessage', generateMessage('Admin', 'A new user has joined 2'));
 
-    socket.on('createMessage', (newMessage) => {
+    socket.on('createMessage', (newMessage, callback) => {
         console.log('User created new message: ', newMessage);
         io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
+
+        callback('This is from the server');
         // socket.broadcast.emit('createMessage', {
         //     from: newMessage.from,
         //     to: newMessage.to,
