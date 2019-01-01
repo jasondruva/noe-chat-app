@@ -22,22 +22,13 @@
                     name="message" 
                     id="message" 
                     placeholder="Message to send" />
-            <button>Send</button>
+            <button>Send</button>            
         </form>
+        <button id="sendLocationButton" name="sendLocationButton">Send Location</button>
 
         <script src="/js/index.js"></script>
     </body>
     <script>
-        jQuery('#chatForm').on('submit', function(e) {
-            e.preventDefault(); //prevents the default behavior for the event
-
-            socket.emit('createMessage', {
-                from: 'User',
-                text: jQuery('[name=message]').val()
-            }, function() {
-                console.log('Sent');
-                jQuery('[name=message]').val('');
-            });
-        });
+        
     </script>
 </html>
